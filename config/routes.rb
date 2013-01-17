@@ -1,4 +1,7 @@
 Agaricus::Application.routes.draw do
+  resources :accounts
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
