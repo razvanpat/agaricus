@@ -2,7 +2,7 @@ Given /^I have accounts$/ do
 	defined?(Account).should be_true
 end
 
-Then /^I should be able to create a new one$/ do
+Then /^I should be able to create a new account$/ do
 	account_name = 'Account1'
 	visit new_account_path
 	fill_in 'Name', with: account_name
@@ -13,7 +13,7 @@ Then /^I should be able to create a new one$/ do
 	page.should have_content account_name
 end
 
-Then /^I should be able to edit an existing one$/ do
+Then /^I should be able to edit an existing account$/ do
 	@edited_account_name = 'Edited Account'
 	@account = Account.find(:first)
 	visit edit_account_path(@account)
@@ -24,10 +24,10 @@ Then /^I should be able to edit an existing one$/ do
 	page.should have_content @edited_account_name
 end
 
-Then /^I should be able to delete one$/ do
+Then /^I should be able to delete account$/ do
 	delete account_path(@account)
 	visit accounts_path
-	page.should_not have_content  @edited_account_name
+	page.should_not have_content @edited_account_name
 end
 
 
