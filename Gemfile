@@ -1,12 +1,17 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
+gem "bootstrap-sass", "~> 2.2.2.0"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
 
+group :development, :test do
+	gem "rspec-rails", "~> 2.12.0"
+	gem "lipsum", "~> 1.2.0"
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -18,6 +23,17 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+end
+
+group :development do 
+	gem "annotate", "~> 2.5.0"
+end
+
+group :test do
+	gem "cucumber-rails", :require=> false
+	gem "database_cleaner"
+	gem "capybara", "~> 2.0.2"
+	gem "factory_girl_rails", "~> 4.1.0"
 end
 
 gem 'jquery-rails'
