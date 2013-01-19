@@ -10,3 +10,38 @@ Feature: Transaction management
 		When I press the add transaction link next to the category
 		Then I should be taken to the add transaction page
 		And I should have the Gas category preselected		
+
+
+	Scenario: Add transaction account default value
+		Given I have the following accounts
+		   | id | name | balance | 
+		   | 1  | Cash | 2500    | 
+		When I click new transaction from the menu
+		Then I should see "- Select an account -" in the account select box
+
+	
+	Scenario: Add transaction category default value
+		Given I have the following categories
+			 | id | name    | balance | 
+			 | 1  | Generic | 100     | 
+		When I click new transaction from the menu
+		Then I should see "- Select a category -" in the category select box
+
+
+	Scenario: View transaction list in the account and category displays
+		Given I have the following accounts
+		   | id | name | balance | 
+		   | 1  | Cash | 2500    | 
+		And I have the following categories
+			 | id | name    | balance | 
+			 | 1  | Generic | 100     | 
+		And I have the following transactions for account Cash
+			 | value | entity | expense | category_id | account_id | 
+			 | 100   | foo    | true    | 1           | 1          | 
+			 | 150   | bar    | false   | 1           | 1          | 
+		When I navigate to account Cash
+		Then I should see transaction foo
+		And I should see transaction bar
+		When I navigate to category Generic
+		Then I should see transaction foo
+		And I should see transaction bar
