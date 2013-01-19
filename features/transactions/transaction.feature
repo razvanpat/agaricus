@@ -12,8 +12,9 @@ Feature: Transaction management
 		And I should have the Gas category preselected		
 
 
+	@focus
 	Scenario: Add transaction account default value
-		Given I have the following accounts
+		Given I have the following account record
 		   | id | name | balance | 
 		   | 1  | Cash | 2500    | 
 		When I click new transaction from the menu
@@ -21,7 +22,7 @@ Feature: Transaction management
 
 	
 	Scenario: Add transaction category default value
-		Given I have the following categories
+		Given I have the following category record
 			 | id | name    | balance | 
 			 | 1  | Generic | 100     | 
 		When I click new transaction from the menu
@@ -29,16 +30,17 @@ Feature: Transaction management
 
 
 	Scenario: View transaction list in the account and category displays
-		Given I have the following accounts
+		Given I have the following account record
 		   | id | name | balance | 
 		   | 1  | Cash | 2500    | 
-		And I have the following categories
+		And I have the following category record
 			 | id | name    | balance | 
 			 | 1  | Generic | 100     | 
-		And I have the following transactions for account Cash
+		And I have the following transaction records
 			 | value | entity | expense | category_id | account_id | 
 			 | 100   | foo    | true    | 1           | 1          | 
 			 | 150   | bar    | false   | 1           | 1          | 
+			 | 250   | asdfg  | true    | 1           | 1          | 
 		When I navigate to account Cash
 		Then I should see transaction foo
 		And I should see transaction bar

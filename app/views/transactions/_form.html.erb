@@ -13,10 +13,13 @@
 
   <div class="field">
     <%= f.label :account_id %><br />
-    <%= f.number_field :account_id %>
+    <%= select(:transaction, :account_id, Account.all.map { |acc| [acc.name, acc.id] }, {prompt: '- Please select -'}) %>
   </div>
   <div class="field">
-    <%= select(:transaction, :category_id, Category.all.map { |cat| [cat.name, cat.id] }) %>
+  <div class="field">
+    <%= f.label :category_id %><br />
+    <%= select(:transaction, :category_id, Category.all.map { |cat| [cat.name, cat.id] }, {prompt: '- Please select -'}) %>
+  </div>
   </div>
   <div class="field">
     <%= f.label :entity %><br />

@@ -57,3 +57,18 @@ end
 Then /^delete account link$/ do
   page.should have_link('Delete')
 end
+
+When /^I click new transaction from the menu$/ do
+  visit root_path
+  click_link('Add Transaction')
+end
+
+Then /^I should see "(.*?)" in the account select box$/ do |arg1|
+    pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should see "(.*?)" in the category select box$/ do |arg1|
+    pending # express the regexp above with the code you wish you had
+end
+
+
