@@ -1,4 +1,7 @@
 Agaricus::Application.routes.draw do
+  resources :transactions
+
+
   resources :categories
 
 

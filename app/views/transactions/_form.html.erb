@@ -1,0 +1,36 @@
+<%= form_for(@transaction) do |f| %>
+  <% if @transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% @transaction.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :account_id %><br />
+    <%= f.number_field :account_id %>
+  </div>
+  <div class="field">
+    <%= select(:transaction, :category_id, Category.all.map { |cat| [cat.name, cat.id] }) %>
+  </div>
+  <div class="field">
+    <%= f.label :entity %><br />
+    <%= f.text_field :entity %>
+  </div>
+  <div class="field">
+    <%= f.label :expense %><br />
+    <%= f.check_box :expense %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
