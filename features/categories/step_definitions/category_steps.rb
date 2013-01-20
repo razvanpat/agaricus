@@ -29,3 +29,9 @@ Then /^I should be able to delete category$/ do
 	visit categories_path
 	page.should_not have_content @edited_category_name
 end
+
+When /^I navigate to category "(.*?)"$/ do |arg1|
+  @category = Category.find_by_name(arg1)
+  visit category_path(@category)
+end
+

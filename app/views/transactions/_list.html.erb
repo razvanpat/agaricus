@@ -1,0 +1,19 @@
+<h2>Transactions</h2>
+
+<table>
+  <tr>
+    <th>Expense</th>
+    <th>Date</th>
+    <th>Value</th>
+    <th>Message</th>
+  </tr>
+  <% transactions.each do |transaction| %>
+    <tr>
+      <td><%= transaction.expense %></td>
+      <td> - </td>
+      <td><%= transaction.value %></td>
+      <td><%= transaction.entity %></td>
+    </tr>
+  <% end %>
+</table>
+

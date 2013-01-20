@@ -20,3 +20,26 @@ Then /^I should have the Gas category preselected$/ do
   page.find("#transaction_category_id option[selected]").text.should == "Gas"
 end
 
+When /^I click new transaction from the menu$/ do
+  visit root_path
+  click_link('Add Transaction')
+end
+
+Then /^I should see "(.*?)" in the account select box$/ do |arg1|
+  page.should have_no_selector("#transaction_account_id options[selected]")
+  page.find(:xpath, "//*[@id='transaction_account_id']/option[1]").text.should == arg1
+end
+
+Then /^I should see "(.*?)" in the category select box$/ do |arg1|
+  page.should have_no_selector("#transaction_category_id option[select]")
+  page.find(:xpath, "//*[@id='transaction_category_id']/option[1]").text.should == arg1
+end
+
+Then /^I should( not)? see transaction "(.*?)"$/ do |negate, arg1|
+  if negate
+    page.should_not have_content(arg1)
+  else
+    page.should have_content(arg1)
+  end
+end
+
