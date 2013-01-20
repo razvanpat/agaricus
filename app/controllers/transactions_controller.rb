@@ -45,6 +45,7 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(params[:transaction])
+    @transaction.account.balance -= @transaction.value
 
     respond_to do |format|
       if @transaction.save

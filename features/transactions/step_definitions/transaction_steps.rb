@@ -43,3 +43,13 @@ Then /^I should( not)? see transaction "(.*?)"$/ do |negate, arg1|
   end
 end
 
+When /^I create an (expense|income) transaction for account "(.*?)" and category "(.*?)" with value "(.*?)"$/ do |type, account, category, value|
+  @account = Account.find_by_name(account)
+  @category = Category. find_by_name(category)
+  if type == "expense"
+    FactoryGirl.create(:transaction, {account_id: @account.id, category_id: @category.id, value: value, expense: true}) 
+  else
+    FactoryGirl.create(:transaction, {account_id: @account.id, category_id: @category.id, value: value, expense: false}) 
+  end
+end
+

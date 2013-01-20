@@ -14,7 +14,7 @@ Feature: Transaction management
 			 | 2  | Empty   | 500     | 
 		And I have the following transaction records
 			 | value | entity | expense | category_id | account_id | 
-			 | 100   | foo    | true    | 1           | 1          | 
+			 | 150   | foo    | true    | 1           | 1          | 
 			 | 150   | bar    | false   | 1           | 1          | 
 		
 
@@ -46,3 +46,9 @@ Feature: Transaction management
 		Then I should see transaction "foo"
 		And I should see transaction "bar"
 		When I navigate to category "Empty"
+
+	Scenario: Adding a transaction changes the balance of it's coresponding account
+		When I create an expense transaction for account "Cash" and category "Generic" with value "50.25"
+		Then the balance of the "Cash" account should be "2449.75"
+		When I create an income transaction for account "Bank" and category "Generic" with value "25"
+		Then the balance of the "Bank" account should be "15025"

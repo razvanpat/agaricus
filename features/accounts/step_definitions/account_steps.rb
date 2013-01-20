@@ -63,3 +63,8 @@ When /^I navigate to account "(.*?)"$/ do |arg1|
   visit account_path(@account)
 end
 
+Then /^the balance of the "(.*?)" account should be "(.*?)"$/ do |arg1, arg2|
+  @account = Account.find_by_name(arg1)
+  @account.balance.should == arg2.to_f
+end
+
