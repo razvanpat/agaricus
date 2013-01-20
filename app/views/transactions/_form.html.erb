@@ -16,14 +16,16 @@
     <%= select(:transaction, :account_id, Account.all.map { |acc| [acc.name, acc.id] }, {prompt: '- Please select -'}) %>
   </div>
   <div class="field">
-  <div class="field">
     <%= f.label :category_id %><br />
     <%= select(:transaction, :category_id, Category.all.map { |cat| [cat.name, cat.id] }, {prompt: '- Please select -'}) %>
-  </div>
   </div>
   <div class="field">
     <%= f.label :entity %><br />
     <%= f.text_field :entity %>
+  </div>
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.date_select :date %>
   </div>
   <div class="field">
     <%= f.label :expense %><br />

@@ -1,5 +1,5 @@
 class Transaction < ActiveRecord::Base
-  attr_accessible :account_id, :category_id, :entity, :expense, :value
+  attr_accessible :account_id, :category_id, :entity, :expense, :value, :date
   belongs_to :account, :touch => true
   belongs_to :category, :touch => true
 

@@ -52,3 +52,4 @@ Feature: Transaction management
 		Then the balance of the "Cash" account should be "2449.75"
 		When I create an income transaction for account "Bank" and category "Generic" with value "25"
 		Then the balance of the "Bank" account should be "15025"
+

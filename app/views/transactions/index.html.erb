@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Date</th>
     <th>Account</th>
     <th>Category</th>
     <th>Entity</th>
@@ -14,6 +15,7 @@
 
 <% @transactions.each do |transaction| %>
   <tr>
+    <td><%= transaction.date %></td>
     <td><%= transaction.account_id %></td>
     <td><%= transaction.category_id %></td>
     <td><%= transaction.entity %></td>

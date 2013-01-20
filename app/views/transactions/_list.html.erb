@@ -10,7 +10,7 @@
   <% transactions.each do |transaction| %>
     <tr>
       <td><%= transaction.expense %></td>
-      <td> - </td>
+      <td><%= transaction.date %></td>
       <td><%= transaction.value %></td>
       <td><%= transaction.entity %></td>
     </tr>
