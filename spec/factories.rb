@@ -13,5 +13,13 @@ FactoryGirl.define do
     t.value 100
     t.entity "Telephone company"
     t.expense true
+    t.date Time.new
+  end
+
+  factory :budget do |b|
+    b.value 100
+    @time = Time.new
+    b.month @time.month 
+    b.year @time.year
   end
 end

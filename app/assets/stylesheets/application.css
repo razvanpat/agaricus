@@ -11,3 +11,19 @@
  *= require_self
  *= require_tree .
  */
+
+table, td, th {
+  border-collapse: collapse;
+  border: 1px solid gray;
+  border-spacing: 0px;
+  padding: 5px 12px;
+}
+
+td {
+  text-align: right;
+}
+
+table .category {
+  text-align: left;
+}
+
