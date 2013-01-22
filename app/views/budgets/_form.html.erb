@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :category_id %><br />
-    <%= f.number_field :category_id %>
+    <%= f.select(:category_id, Category.all.map { |cat| [cat.name, cat.id] }, {prompt: '- Please select -'}) %>
   </div>
   <div class="field">
     <%= f.label :month %><br />
