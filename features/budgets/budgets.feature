@@ -1,4 +1,3 @@
-@focus
 Feature: Budgets management
 	In order to better manage his money
 	The User

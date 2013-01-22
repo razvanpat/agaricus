@@ -1,3 +1,4 @@
+@focus
 Feature: Transaction management
 	In order to keep track of how much of a budget has been spent and earned
 	The User
@@ -19,11 +20,17 @@ Feature: Transaction management
 		
 
 	Scenario: Add transaction from category list
-		Given I have the Gas category
-		And I am viewing the category list
-		When I press the add transaction link next to the category
+		Given I am viewing the category list
+		When I press the add transaction link next to the "Generic" category
 		Then I should be taken to the add transaction page
-		And I should have the Gas category preselected		
+		And I should see "Generic" in the category select box
+
+
+	Scenario: Add transaction from account list
+		Given I am viewing the account list
+		When I press the add transaction link next to account "Bank"
+		Then I should be taken to the add transaction page
+		And I should see "Bank" in the account select box
 
 
 	Scenario: Add transaction account default value

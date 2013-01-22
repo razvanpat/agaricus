@@ -68,3 +68,7 @@ Then /^the balance of the "(.*?)" account should be "(.*?)"$/ do |arg1, arg2|
   @account.balance.should == arg2.to_f
 end
 
+Given /^I am viewing the account list$/ do
+  visit accounts_path
+end
+

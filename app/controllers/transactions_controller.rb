@@ -29,6 +29,9 @@ class TransactionsController < ApplicationController
     if params[:category_id]
       @transaction.category_id = params[:category_id]
     end
+    if params[:account_id]
+      @transaction.account_id = params[:account_id]
+    end
 
     respond_to do |format|
       format.html # new.html.erb
