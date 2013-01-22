@@ -6,9 +6,9 @@ gem "bootstrap-sass", "~> 2.2.2.0"
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 
 group :development, :test do
+  gem 'sqlite3'
 	gem "rspec-rails", "~> 2.12.0"
 	gem "lipsum", "~> 1.2.0"
 end
@@ -34,6 +34,10 @@ group :test do
 	gem "database_cleaner"
 	gem "capybara", "~> 2.0.2"
 	gem "factory_girl_rails", "~> 4.1.0"
+end
+
+group :production do
+  gem 'pg'
 end
 
 gem 'jquery-rails'
