@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :month %><br />
-    <%= f.number_field :month %>
+    <%= select_month(Date.today, :field_name => 'month', :prefix => 'budget') %>
   </div>
   <div class="field">
     <%= f.label :year %><br />

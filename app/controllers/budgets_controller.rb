@@ -30,6 +30,7 @@ class BudgetsController < ApplicationController
   # GET /budgets/new.json
   def new
     @budget = Budget.new
+    @budget.year = Time.new.year
 
     respond_to do |format|
       format.html # new.html.erb
