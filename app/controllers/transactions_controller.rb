@@ -21,11 +21,14 @@ class TransactionsController < ApplicationController
   def new
     @transaction = Transaction.new
 
+    session[:transaction_return] = "general"
     if params[:category_id]
       @transaction.category_id = params[:category_id]
+      session[:transaction_return] = "categories"
     end
     if params[:account_id]
       @transaction.account_id = params[:account_id]
+      session[:transaction_return] = "accounts"
     end
 
     respond_to do |format|
@@ -48,11 +51,22 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(params[:transaction])
 
     if(@transaction.category.user == current_user)
-      @transaction.account.balance -= @transaction.value
-
+      if @transaction.expense == true
+        @transaction.account.balance -= @transaction.value
+      else
+        @transaction.account.balance += @transaction.value
+      end
       respond_to do |format|
         if @transaction.save
-          format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+          format.html do 
+            if session[:transaction_return] == "general"
+              redirect_to new_transaction_url, notice: 'Transaction was successfully created.'
+            elsif session[:transaction_return] == "categories"
+              redirect_to categories_url, notice: 'Transaction was successfully created.'
+            elsif session[:transaction_return] == "accounts"
+              redirect_to accounts_url, notice: 'Transaction was successfully created.'
+            end
+          end
           format.json { render json: @transaction, status: :created, location: @transaction }
         else
           format.html { render action: "new" }
