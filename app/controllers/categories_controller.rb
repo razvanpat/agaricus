@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @categories = current_user.categories.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,9 +17,13 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @category }
+    if @category.user == current_user
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @category }
+      end
+    else
+      raise_not_found
     end
   end
 
@@ -37,12 +41,16 @@ class CategoriesController < ApplicationController
   # GET /categories/1/edit
   def edit
     @category = Category.find(params[:id])
+    if @category.user != current_user
+      raise_not_found
+    end
   end
 
   # POST /categories
   # POST /categories.json
   def create
     @category = Category.new(params[:category])
+    @category.user = current_user
 
     respond_to do |format|
       if @category.save
@@ -60,14 +68,18 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
 
-    respond_to do |format|
-      if @category.update_attributes(params[:category])
-        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+    if @category.user == current_user
+      respond_to do |format|
+        if @category.update_attributes(params[:category])
+          format.html { redirect_to @category, notice: 'Category was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @category.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      raise_not_found
     end
   end
 
@@ -75,11 +87,16 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1.json
   def destroy
     @category = Category.find(params[:id])
-    @category.destroy
 
-    respond_to do |format|
-      format.html { redirect_to categories_url }
-      format.json { head :no_content }
+    if @category.user == current_user
+      @category.destroy
+
+      respond_to do |format|
+        format.html { redirect_to categories_url }
+        format.json { head :no_content }
+      end
+    else
+      raise_not_found
     end
   end
 end

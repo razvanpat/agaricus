@@ -6,13 +6,13 @@ Feature: Budgets management
 	Background:
 		Given I am a new, authenticated user
 		And I have the following account records
-			| id | name | balance | 
-			| 1  | Cash | 2500    | 
-			| 2  | Bank | 15000   | 
+			| id | name | balance | user_id | 
+			| 1  | Cash | 2500    | 1       | 
+			| 2  | Bank | 15000   | 1       | 
 		And I have the following category records
-			| id | name        | balance | 
-			| 1  | Electricity | 100     | 
-			| 2  | Groceries   | 500     | 
+			| id | name        | balance | user_id | 
+			| 1  | Electricity | 100     | 1       | 
+			| 2  | Groceries   | 500     | 1       | 
 		And I have the following budget records
 			| id | category_id | value | 
 			| 1  | 1           | 100   | 

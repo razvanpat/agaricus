@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
-    @accounts = Account.all
+    @accounts = current_user.accounts.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,9 +17,13 @@ class AccountsController < ApplicationController
   def show
     @account = Account.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @account }
+    if @account.user == current_user 
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @account }
+      end
+    else
+      raise_not_found()
     end
   end
 
@@ -37,12 +41,16 @@ class AccountsController < ApplicationController
   # GET /accounts/1/edit
   def edit
     @account = Account.find(params[:id])
+    if @account.user != current_user 
+      raise_not_found()
+    end
   end
 
   # POST /accounts
   # POST /accounts.json
   def create
     @account = Account.new(params[:account])
+    @account.user_id = current_user.id
 
     respond_to do |format|
       if @account.save
@@ -60,14 +68,18 @@ class AccountsController < ApplicationController
   def update
     @account = Account.find(params[:id])
 
-    respond_to do |format|
-      if @account.update_attributes(params[:account])
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+    if @account.user == current_user
+      respond_to do |format|
+        if @account.update_attributes(params[:account])
+          format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+          format.json { head :no_content }
+        else
+         format.html { render action: "edit" }
+         format.json { render json: @account.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      raise_not_found()
     end
   end
 
@@ -75,11 +87,15 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1.json
   def destroy
     @account = Account.find(params[:id])
-    @account.destroy
+    if @account.user == current_user
+      @account.destroy
 
-    respond_to do |format|
-      format.html { redirect_to accounts_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to accounts_url }
+        format.json { head :no_content }
+      end
+    else
+      raise_not_found()
     end
   end
 end

@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :account_id %><br />
-    <%= f.select(:account_id, Account.all.map { |acc| [acc.name, acc.id] }, {prompt: '- Please select -'}) %>
+    <%= f.select(:account_id, current_user.accounts.map { |acc| [acc.name, acc.id] }, {prompt: '- Please select -'}) %>
   </div>
   <div class="field">
     <%= f.label :category_id %><br />
-    <%= f.select(:category_id, Category.all.map { |cat| [cat.name, cat.id] }, {prompt: '- Please select -'}) %>
+    <%= f.select(:category_id, current_user.categories.map { |cat| [cat.name, cat.id] }, {prompt: '- Please select -'}) %>
   </div>
   <div class="field">
     <%= f.label :entity %><br />

@@ -33,17 +33,10 @@ end
 
 Given /^I am on the homepage$/ do
 	visit root_path
-	Account.create!(name: 'acc1', balance: 0)
-	Account.create!(name: 'acc2', balance: 3)
 end
 
 When /^I click the accounts link$/ do
   click_link 'Accounts'
-end
-
-Then /^I should see the account list$/ do
-  page.should have_content('acc1')
-  page.should have_content('acc2')
 end
 
 Then /^a new account link$/ do

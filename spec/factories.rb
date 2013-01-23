@@ -22,4 +22,9 @@ FactoryGirl.define do
     b.month @time.month 
     b.year @time.year
   end
+
+  factory :user do |u|
+    u.email "foo@bar.com"
+    u.password "12345678"
+  end
 end

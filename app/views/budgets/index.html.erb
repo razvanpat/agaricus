@@ -15,7 +15,7 @@
     <% end %>
   </tr>
 
-<% Category.all.each do |category| %>
+<% current_user.categories.each do |category| %>
   <tr>
     <td id="category-#{category.id}" class="category"><%= category.name %></td>
     <% @months.each do |m| %>

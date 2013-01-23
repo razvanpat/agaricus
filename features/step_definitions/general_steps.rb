@@ -14,5 +14,13 @@ Given /^I am a new, authenticated user$/ do
   fill_in "user_email", :with => email
   fill_in "user_password", :with => password
   click_button "Sign in"
-
 end
+
+Then /^I should( not)? see "(.*?)"$/ do |arg1, arg2|
+  if arg1
+    page.should_not have_content(arg2)
+  else
+    page.should have_content(arg2)
+  end
+end
+

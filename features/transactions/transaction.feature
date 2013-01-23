@@ -7,18 +7,18 @@ Feature: Transaction management
 	Background:
 		Given I am a new, authenticated user
 		And I have the following account records
-		   | id | name | balance | 
-		   | 1  | Cash | 2500    | 
-		   | 2  | Bank | 15000   | 
+			| id | name | balance | user_id | 
+			| 1  | Cash | 2500    | 1       | 
+			| 2  | Bank | 15000   | 1       | 
 		And I have the following category records
-			 | id | name    | balance | 
-			 | 1  | Generic | 100     | 
-			 | 2  | Empty   | 500     | 
+			| id | name    | balance | user_id | 
+			| 1  | Generic | 100     | 1       | 
+			| 2  | Empty   | 500     | 1       | 
 		And I have the following transaction records
-			 | value | entity | expense | category_id | account_id | 
-			 | 150   | foo    | true    | 1           | 1          | 
-			 | 150   | bar    | false   | 1           | 1          | 
-		
+			| value | entity | expense | category_id | account_id | 
+			| 150   | foo    | true    | 1           | 1          | 
+			| 150   | bar    | false   | 1           | 1          | 
+
 
 	Scenario: Add transaction from category list
 		Given I am viewing the category list
@@ -38,7 +38,7 @@ Feature: Transaction management
 		When I click new transaction from the menu
 		Then I should see "- Please select -" in the account select box
 
-	
+
 	Scenario: Add transaction category default value
 		When I click new transaction from the menu
 		Then I should see "- Please select -" in the category select box
