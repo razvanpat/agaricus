@@ -25,9 +25,9 @@ Then /^I should be able to edit an existing category$/ do
 end
 
 Then /^I should be able to delete category$/ do
-	delete category_path(@category)
-	visit categories_path
-	page.should_not have_content @edited_category_name
+  within("#category-#{@category.id}") do
+    expect { click_link 'Delete' }.to change(Category, :count).by(-1)
+  end
 end
 
 When /^I navigate to category "(.*?)"$/ do |arg1|

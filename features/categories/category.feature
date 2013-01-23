@@ -5,7 +5,8 @@ Feature: Category management
 
 
 Scenario: Category list editing
-	Given I have categories
+	Given I am a new, authenticated user
+	And I have categories
 	Then I should be able to create a new category
 	And I should be able to edit an existing category
 	And I should be able to delete category

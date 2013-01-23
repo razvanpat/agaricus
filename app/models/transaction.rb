@@ -3,6 +3,8 @@ class Transaction < ActiveRecord::Base
   belongs_to :account, :touch => true
   belongs_to :category, :touch => true
 
+  delegate :user_id, :to => :account
+
   validates :account_id  , presence: true
   validates :category_id , presence: true
 

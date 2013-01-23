@@ -25,9 +25,9 @@ Then /^I should be able to edit an existing account$/ do
 end
 
 Then /^I should be able to delete account$/ do
-	delete account_path(@account)
-	visit accounts_path
-	page.should_not have_content @edited_account_name
+  within("#account-#{@account.id}") do
+    expect { click_link 'Delete' }.to change(Account, :count).by(-1)
+  end
 end
 
 

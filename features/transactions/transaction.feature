@@ -5,7 +5,8 @@ Feature: Transaction management
 	Should be able to edit his transaction list
 
 	Background:
-		Given I have the following account records
+		Given I am a new, authenticated user
+		And I have the following account records
 		   | id | name | balance | 
 		   | 1  | Cash | 2500    | 
 		   | 2  | Bank | 15000   | 

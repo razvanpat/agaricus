@@ -5,14 +5,16 @@ Feature: Account management
 
 
 Scenario: Account list editing
-	Given I have accounts
+	Given I am a new, authenticated user
+	And I have accounts
 	Then I should be able to create a new account
 	And I should be able to edit an existing account
 	And I should be able to delete account
 
 
 Scenario: Access acounts list
-	Given I am on the homepage
+	Given I am a new, authenticated user
+	And I am on the homepage
 	When I click the accounts link
 	Then I should see the account list
 	And a new account link
