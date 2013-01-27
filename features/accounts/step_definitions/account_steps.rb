@@ -1,36 +1,3 @@
-Given /^I have accounts$/ do
-	defined?(Account).should be_true
-end
-
-Then /^I should be able to create a new account$/ do
-	account_name = 'Account1'
-	visit new_account_path
-	fill_in 'Name', with: account_name
-	fill_in 'Balance', with: '100.50'
-	click_button 'Create Account'
-	page.should have_content 'successfully created'
-	visit accounts_path
-	page.should have_content account_name
-end
-
-Then /^I should be able to edit an existing account$/ do
-	@edited_account_name = 'Edited Account'
-	@account = Account.find(:first)
-	visit edit_account_path(@account)
-	fill_in 'Name', with: @edited_account_name
-	click_button 'Update Account'
-	page.should have_content 'successfully updated'
-	visit accounts_path
-	page.should have_content @edited_account_name
-end
-
-Then /^I should be able to delete account$/ do
-  within("#account-#{@account.id}") do
-    expect { click_link 'Delete' }.to change(Account, :count).by(-1)
-  end
-end
-
-
 Given /^I am on the homepage$/ do
 	visit root_path
 end
@@ -63,5 +30,25 @@ end
 
 Given /^I am viewing the account list$/ do
   visit accounts_path
+end
+
+Given /^I am on the add account page$/ do
+  visit new_account_path
+end
+
+When /^I fill in Name with "(.*?)"$/ do |arg1|
+  fill_in "Name", with: arg1
+end
+
+When /^I fill in Balance with "(.*?)"$/ do |arg1|
+  fill_in "Balance", with: arg1
+end
+
+When /^I press "(.*?)"$/ do |arg1|
+  click_button arg1
+end
+
+Then /^I should see validation error$/ do
+   page.should have_selector(".field_with_errors")
 end
 
