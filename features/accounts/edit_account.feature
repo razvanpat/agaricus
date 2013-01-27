@@ -1,17 +1,20 @@
-@add_account
-Feature: Add a new account
+@edit_account
+Feature: Edit a new account
 	As a User
-	I would like to be able to create a new account
+	I would like to be able to edit an account
 
 	Background:
 		Given I am a new, authenticated user
-		And I am on the add account page
+		And I have the following account record
+			| name | balance | user_id | 
+			| Bank | 0       | 1       |
+		And I am on the edit "Bank" account page
 
-	Scenario Outline: Successful creation
+	Scenario Outline: Successful edit
 		When I fill in Name with "<name>"
 		And I fill in Balance with "<balance>"
-		And I press "Create Account"
-		Then I should see "Account was successfully created"
+		And I press "Update Account"
+		Then I should see "Account was successfully updated"
 		And I should see "<name>"
 
 		Examples:
@@ -25,7 +28,7 @@ Feature: Add a new account
 	Scenario Outline: Validation error
 		When I fill in Name with "<name>"
 		And I fill in Balance with "<balance>"
-		And I press "Create Account"
+		And I press "Update Account"
 		Then I should see validation error
 
 		Examples:

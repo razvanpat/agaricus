@@ -52,3 +52,8 @@ Then /^I should see validation error$/ do
    page.should have_selector(".field_with_errors")
 end
 
+Given /^I am on the edit "(.*?)" account page$/ do |arg1|
+  account = Account.find_by_name(arg1)
+  visit edit_account_path account 
+end
+
