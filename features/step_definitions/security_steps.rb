@@ -23,3 +23,6 @@ When /^I visit categories path$/ do
   visit categories_path
 end
 
+Given /^that I am not logged in$/ do
+end
+

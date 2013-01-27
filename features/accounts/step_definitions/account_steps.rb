@@ -71,3 +71,7 @@ end
 When /^I go back to accounts list page$/ do
 end
 
+Then /^I should see (\d+) page$/ do |arg1|
+  page.driver.status_code.should == 404
+end
+

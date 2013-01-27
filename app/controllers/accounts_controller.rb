@@ -23,7 +23,7 @@ class AccountsController < ApplicationController
         format.json { render json: @account }
       end
     else
-      raise_not_found()
+      return raise_not_found()
     end
   end
 
