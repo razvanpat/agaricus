@@ -57,3 +57,17 @@ Given /^I am on the edit "(.*?)" account page$/ do |arg1|
   visit edit_account_path account 
 end
 
+Given /^I am on the accounts list page$/ do
+  visit accounts_path
+end
+
+When /^I click the delete link for "(.*?)"$/ do |arg1|
+  account = Account.find_by_name arg1
+  within "#account-#{account.id}" do
+    click_link "Delete"
+  end
+end
+
+When /^I go back to accounts list page$/ do
+end
+
