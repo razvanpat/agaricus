@@ -51,11 +51,6 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(params[:transaction])
 
     if(@transaction.category.user == current_user)
-      if @transaction.expense == true
-        @transaction.account.balance -= @transaction.value
-      else
-        @transaction.account.balance += @transaction.value
-      end
       respond_to do |format|
         if @transaction.save
           format.html do 

@@ -8,9 +8,20 @@ class Transaction < ActiveRecord::Base
   validates :account_id  , presence: true
   validates :category_id , presence: true
 
-  after_save :update_account_balance
+  before_create :update_account_balance
+  after_save :save_account
 
   def update_account_balance
+    if account != nil
+      if expense
+        account.balance -= value
+      else
+        account.balance += value
+      end
+    end
+  end
+
+  def save_account
     self.account.save
   end
 end
