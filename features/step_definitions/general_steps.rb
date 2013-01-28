@@ -24,3 +24,6 @@ Then /^I should( not)? see "(.*?)"$/ do |arg1, arg2|
   end
 end
 
+When /^I fill in (.*?) with "(.*?)"$/ do |field, arg1|
+  fill_in field, with: arg1
+end

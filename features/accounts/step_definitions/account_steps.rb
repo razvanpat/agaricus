@@ -36,14 +36,6 @@ Given /^I am on the add account page$/ do
   visit new_account_path
 end
 
-When /^I fill in Name with "(.*?)"$/ do |arg1|
-  fill_in "Name", with: arg1
-end
-
-When /^I fill in Balance with "(.*?)"$/ do |arg1|
-  fill_in "Balance", with: arg1
-end
-
 When /^I press "(.*?)"$/ do |arg1|
   click_button arg1
 end

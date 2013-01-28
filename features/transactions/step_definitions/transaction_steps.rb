@@ -48,20 +48,28 @@ Then /^I should( not)? see transaction "(.*?)"$/ do |negate, arg1|
   end
 end
 
-When /^I create an (expense|income) transaction for account "(.*?)" and category "(.*?)" with value "(.*?)"$/ do |type, account, category, value|
-  pending
-  @account = Account.find_by_name(account)
-  @category = Category. find_by_name(category)
-  if type == "expense"
-    FactoryGirl.create(:transaction, {account_id: @account.id, category_id: @category.id, value: value, expense: true}) 
-  else
-    FactoryGirl.create(:transaction, {account_id: @account.id, category_id: @category.id, value: value, expense: false}) 
-  end
-end
-
 When /^I press the add transaction link next to account "(.*?)"$/ do |arg1|
   account = Account.find_by_name(arg1)
   within("#account-#{account.id}") do
     click_link "Add Transaction"
   end
 end
+
+Given /^I am on the add transaction page$/ do
+  visit new_transaction_path
+end
+
+When /^I select category "(.*?)"$/ do |arg1|
+  page.select(arg1, from: "transaction_category_id")
+end
+
+When /^I select account "(.*?)"$/ do |arg1|
+  page.select(arg1, from: "transaction_account_id")
+end
+
+When /^I set expense to "(.*?)"$/ do |arg1|
+  if arg1 == 'true'
+    page.check('transaction_expense')
+  end
+end
+
