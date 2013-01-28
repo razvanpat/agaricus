@@ -14,7 +14,7 @@ When /^I press the add transaction link next to the "(.*?)" category$/ do |arg1|
 end
 
 Then /^I should be taken to the add transaction page$/ do
-  current_url == new_transaction_path
+  current_url.should include new_transaction_url
 end
 
 When /^I click new transaction from the menu$/ do
@@ -60,16 +60,28 @@ Given /^I am on the add transaction page$/ do
 end
 
 When /^I select category "(.*?)"$/ do |arg1|
-  page.select(arg1, from: "transaction_category_id")
+  unless arg1.empty?
+    page.select(arg1, from: "transaction_category_id")
+  end
 end
 
 When /^I select account "(.*?)"$/ do |arg1|
-  page.select(arg1, from: "transaction_account_id")
+  unless arg1.empty?
+    page.select(arg1, from: "transaction_account_id")
+  end
 end
 
 When /^I set expense to "(.*?)"$/ do |arg1|
   if arg1 == 'true'
     page.check('transaction_expense')
   end
+end
+
+Then /^I should be taken to the category list page$/ do
+  current_url.should eq categories_url
+end
+
+Then /^I should be taken to the account list page$/ do
+  current_url.should eq accounts_url
 end
 

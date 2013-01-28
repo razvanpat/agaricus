@@ -27,3 +27,10 @@ end
 When /^I fill in (.*?) with "(.*?)"$/ do |field, arg1|
   fill_in field, with: arg1
 end
+
+Given /^I clicked (.*?) from the menu$/ do |arg1|
+  visit root_path
+  within('nav') do 
+    click_link(arg1)
+  end
+end
