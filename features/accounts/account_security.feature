@@ -16,16 +16,18 @@ Feature: Account security
 
 		@allow-rescue
 	Scenario Outline: Bobs data gets accessed by various users
-		Given that I am logged in as "<username>" with password "<password>"
+		Given I am logged in as "<username>" with password "<password>"
 		When I submit a <request_type> request for <model> "<entry_name>"
 		Then I should see <see> 
 
 		Examples:
-			| username         | password | request_type | model   | entry_name | see       | 
-			| l33t@hackers.org | 1h@cku   | GET          | account | Bank       | 404 page  | 
-			| l33t@hackers.org | 1h@cku   | POST         | account | Bank       | 404 page  | 
-			| l33t@hackers.org | 1h@cku   | DELETE       | account | Bank       | 404 page  | 
-			|                  |          | GET          | account | Bank       | "Sign in" | 
-			|                  |          | POST         | account | Bank       | "Sign in" | 
-			|                  |          | DELETE       | account | Bank       | "Sign in" | 
+			 | username         | password | request_type | model   | entry_name | see          | 
+			 |                  |          | GET          | account | Bank       | "redirected" | 
+			 |                  |          | PUT          | account | Bank       | "redirected" | 
+			 |                  |          | POST         | account | Bank       | "redirected" | 
+			 |                  |          | DELETE       | account | Bank       | "redirected" | 
+			 | l33t@hackers.org | 1h@cku   | GET          | account | Bank       | 404 page     | 
+			 | l33t@hackers.org | 1h@cku   | PUT          | account | Bank       | 404 page     | 
+			 | l33t@hackers.org | 1h@cku   | POST         | account | Bank       | 404 page     | 
+			 | l33t@hackers.org | 1h@cku   | DELETE       | account | Bank       | 404 page     | 
 

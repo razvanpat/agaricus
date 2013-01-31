@@ -34,3 +34,21 @@ Given /^I clicked (.*?) from the menu$/ do |arg1|
     click_link(arg1)
   end
 end
+
+When /^I submit a (.*?) request for (.*?) "(.*?)"$/ do |request_type, model_name, item_name|
+  model = model_name.capitalize.constantize()
+  item = model.find_by_name(item_name)
+
+  attributes = FactoryGirl.attributes_for(model_name)
+  case request_type
+  when "GET"
+    page.driver.get(send(model_name + '_path', item))
+  when "POST"
+    page.driver.post(send(model_name.pluralize + '_path'), attributes)
+  when "PUT"
+    page.driver.put(send(model_name + '_path', item), attributes)
+  when "DELETE"
+    page.driver.delete(send(model_name + '_path', item))
+  end
+
+end
