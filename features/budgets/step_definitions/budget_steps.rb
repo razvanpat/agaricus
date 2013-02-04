@@ -8,3 +8,8 @@ Then /^I should see a table with a row for each category and the budget, spendin
   page.find(:xpath, '/html/body/table/tr[3]/td[7]').should have_text('5')
 end
 
+Then /^remaining budget for (.*?) should be (\d+)$/ do |category_name, value|
+  budget = Budget.joins(:category).where('categories.name' => category_name).first
+  budget.value.should eq value
+end
+

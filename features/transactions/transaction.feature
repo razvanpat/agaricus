@@ -1,4 +1,4 @@
-@focus
+@transactions
 Feature: Transaction management
 	In order to keep track of how much of a budget has been spent and earned
 	The User

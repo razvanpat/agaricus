@@ -49,7 +49,7 @@ Then /^I should( not)? see transaction "(.*?)"$/ do |negate, arg1|
 end
 
 When /^I create an (expense|income) transaction for account "(.*?)" and category "(.*?)" with value "(.*?)"$/ do |type, account, category, value|
-  pending
+#  pending
   @account = Account.find_by_name(account)
   @category = Category. find_by_name(category)
   if type == "expense"
