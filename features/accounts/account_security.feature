@@ -14,14 +14,19 @@ Feature: Account security
 			| 1  | Bank | 5700    | 2       | 
 
 
-	Scenario: not logged in hacker tries to see bobs bank account
-		Given that I am not logged in
-		When I navigate to account "Bank"
-		Then I should see "Sign in"
-	
-	@allow-rescue
-	Scenario: logged in hacker tries to see bobs bank account
-		Given I am logged in as "l33t@hackers.org" with password "1h@cku"
-		When I navigate to account "Bank"
-		Then I should see 404 page
-		
+		@allow-rescue
+	Scenario Outline: Bobs data gets accessed by various users
+		Given I am logged in as "<username>" with password "<password>"
+		When I submit a <request_type> request for <model> "<entry_name>"
+		Then I should see <see> 
+
+		Examples:
+			 | username         | password | request_type | model   | entry_name | see          | 
+			 |                  |          | GET          | account | Bank       | "redirected" | 
+			 |                  |          | PUT          | account | Bank       | "redirected" | 
+			 |                  |          | POST         | account | Bank       | "redirected" | 
+			 |                  |          | DELETE       | account | Bank       | "redirected" | 
+			 | l33t@hackers.org | 1h@cku   | GET          | account | Bank       | 404 page     | 
+			 | l33t@hackers.org | 1h@cku   | PUT          | account | Bank       | 404 page     | 
+			 | l33t@hackers.org | 1h@cku   | DELETE       | account | Bank       | 404 page     | 
+

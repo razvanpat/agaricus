@@ -50,31 +50,22 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(params[:transaction])
 
-    if(@transaction.category.user == current_user)
-      if @transaction.expense == true
-        @transaction.account.balance -= @transaction.value
-      else
-        @transaction.account.balance += @transaction.value
-      end
-      respond_to do |format|
-        if @transaction.save
-          format.html do 
-            if session[:transaction_return] == "general"
-              redirect_to new_transaction_url, notice: 'Transaction was successfully created.'
-            elsif session[:transaction_return] == "categories"
-              redirect_to categories_url, notice: 'Transaction was successfully created.'
-            elsif session[:transaction_return] == "accounts"
-              redirect_to accounts_url, notice: 'Transaction was successfully created.'
-            end
+    respond_to do |format|
+      if @transaction.save
+        format.html do 
+          if session[:transaction_return] == "general"
+            redirect_to new_transaction_url, notice: 'Transaction was successfully created.'
+          elsif session[:transaction_return] == "categories"
+            redirect_to categories_url, notice: 'Transaction was successfully created.'
+          elsif session[:transaction_return] == "accounts"
+            redirect_to accounts_url, notice: 'Transaction was successfully created.'
           end
-          format.json { render json: @transaction, status: :created, location: @transaction }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @transaction.errors, status: :unprocessable_entity }
         end
+        format.json { render json: @transaction, status: :created, location: @transaction }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
-    else
-      raise_not_found
     end
   end
 

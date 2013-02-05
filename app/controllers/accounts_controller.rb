@@ -50,6 +50,7 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(params[:account])
+
     @account.user_id = current_user.id
 
     respond_to do |format|
@@ -74,8 +75,8 @@ class AccountsController < ApplicationController
           format.html { redirect_to @account, notice: 'Account was successfully updated.' }
           format.json { head :no_content }
         else
-         format.html { render action: "edit" }
-         format.json { render json: @account.errors, status: :unprocessable_entity }
+          format.html { render action: "edit" }
+          format.json { render json: @account.errors, status: :unprocessable_entity }
         end
       end
     else
