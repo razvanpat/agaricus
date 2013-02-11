@@ -1,3 +1,4 @@
+@budgets
 Feature: Budgets management
 	In order to better manage his money
 	The User
@@ -14,11 +15,11 @@ Feature: Budgets management
 			| 2  | Groceries   | 500     | 1       | 
 		And I have the following budget records
 			| id | category_id | value | 
-			| 1  | 1           | 100   | 
+			| 1  | 1           | 400   | 
 			| 2  | 2           | 450   | 
 		And I have the following transaction records
 			| value | entity            | expense | category_id | account_id | 
-			| 95    | Electricity bill  | true    | 1           | 1          | 
+			| 100   | Electricity bill  | true    | 1           | 1          | 
 			| 10    | Some return money | false   | 1           | 1          | 
 			| 150   | Groceries         | true    | 1           | 1          | 
 			| 50    | Groceries         | true    | 1           | 1          | 
@@ -27,13 +28,9 @@ Feature: Budgets management
 		When I navigate to the view budgets page
 		Then I should see a table with a row for each category and the budget, spending and remainings for each month on the columns
 
-	Scenario: Remaining budget
-		When I navigate to the view budgets page
-		Then remaining budget for Electricity should be 5
-
 	Scenario: View unbudgeted ammount
 		When I navigate to the view budgets page
-		Then I should see "You have 17215 not budgeted"
+		Then I should see "You have 16950 not budgeted"
 
 	Scenario: Unbudgeted message when all money is budgeted
 		Given I have the following transaction record

@@ -11,7 +11,8 @@ module BudgetsHelper
   def spendings_for_month (category_id, month, year)
     @start_time = Time.parse("#{year}-#{month}-1")
     @end_time = @start_time + 1.month
-    transactions = Transaction.where('category_id = ? AND date >= ? AND date < ?', category_id, @start_time, @end_time)
+    #TODO: Use sum here
+    transactions = Transaction.where('category_id = ? AND date >= ? AND date < ? AND expense = ?', category_id, @start_time, @end_time, true)
     spendings = 0
     transactions.each do |t|
       spendings += t.value
@@ -21,5 +22,28 @@ module BudgetsHelper
 
   def remaining_for_month (category_id, month, year)
     return budget_for_month(category_id, month, year) - spendings_for_month(category_id, month, year)
+  end
+
+  def money_budgeted_message
+    unbudgeted_amount = accounts_total - remaining_for_current_month
+    if unbudgeted_amount > 0
+      "You have #{unbudgeted_amount} not budgeted."
+    elsif unbudgeted_amount < 0
+      "You need #{unbudgeted_amount} more to cover your budgets."
+    elsif
+      "All money is budgeted. Well done."
+    end
+  end
+
+  def accounts_total
+    Account.sum(:balance)
+  end
+
+  def remaining_for_current_month
+    @current_month_start = Time.parse("#{@time.year}-#{@time.month}-1")
+    @current_month_end = @current_month_start + 1.month
+    budgeted = Budget.sum(:value, :conditions => {:month => @time.month, :year => @time.year})
+    expenses = Transaction.sum(:value, :conditions => {:date => [@current_month_start..@current_month_end]})
+    return budgeted - expenses
   end
 end
