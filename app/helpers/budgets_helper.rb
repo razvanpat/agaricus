@@ -26,24 +26,34 @@ module BudgetsHelper
 
   def money_budgeted_message
     unbudgeted_amount = accounts_total - remaining_for_current_month
+    logger.debug "Unbudgeted amount: " + unbudgeted_amount.to_s
     if unbudgeted_amount > 0
-      "You have #{unbudgeted_amount} not budgeted."
+      "<div class=\"yellow\">You have #{unbudgeted_amount} not budgeted.</div>"
     elsif unbudgeted_amount < 0
-      "You need #{unbudgeted_amount} more to cover your budgets."
-    elsif
-      "All money is budgeted. Well done."
+      unbudgeted_amount = 0 - unbudgeted_amount
+      "<div class=\"red\">You need #{unbudgeted_amount} more to cover your budgets.</div>"
+    else
+      "<div class=\"green\">All money is budgeted. Well done.</div>"
     end
   end
 
   def accounts_total
-    Account.sum(:balance)
+    Account.sum(:balance, :conditions => {:user_id => current_user.id})
   end
 
   def remaining_for_current_month
     @current_month_start = Time.parse("#{@time.year}-#{@time.month}-1")
     @current_month_end = @current_month_start + 1.month
-    budgeted = Budget.sum(:value, :conditions => {:month => @time.month, :year => @time.year})
-    expenses = Transaction.sum(:value, :conditions => {:date => [@current_month_start..@current_month_end]})
-    return budgeted - expenses
+    budgeted = Budget.joins(:category).sum(:value, :conditions => {:month => @time.month, :year => @time.year, :categories => {:user_id => current_user.id}})
+    expenses = Transaction.joins(:category).sum(:value, :conditions => {
+      :date => [@current_month_start..@current_month_end], 
+      :expense => true,
+      :categories => {:user_id => current_user.id}})
+    result = budgeted - expenses
+    logger.debug "Calculating remaining money for this month:"
+    logger.debug "  budgeted - " + budgeted.to_s
+    logger.debug "  expenses - " + expenses.to_s
+    logger.debug "  result   - " + result.to_s
+    return result
   end
 end

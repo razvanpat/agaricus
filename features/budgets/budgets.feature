@@ -13,6 +13,7 @@ Feature: Budgets management
 			| id | name        | balance | user_id | 
 			| 1  | Electricity | 100     | 1       | 
 			| 2  | Groceries   | 500     | 1       | 
+			| 3  | Car         | 0       | 1       |
 		And I have the following budget records
 			| id | category_id | value | 
 			| 1  | 1           | 400   | 
@@ -30,18 +31,18 @@ Feature: Budgets management
 
 	Scenario: View unbudgeted ammount
 		When I navigate to the view budgets page
-		Then I should see "You have 16950 not budgeted"
+		Then I should see "You have 16660.0 not budgeted"
 
 	Scenario: Unbudgeted message when all money is budgeted
-		Given I have the following transaction record
-			| value | entity | expense | category_id | account_id | 
-			| 17215 | foo    | true    | 1           | 1          | 
+		Given I have the following budget record
+			| id | category_id | value | 
+			| 3  | 3           | 16660 | 
 		When I navigate to the view budgets page
 		Then I should see "All money is budgeted. Well done."
-	
+
 	Scenario: Unbudgeted message when budgets exceed available money 
-		Given I have the following transaction record
-			| value | entity | expense | category_id | account_id | 
-			| 17315 | foo    | true    | 1           | 1          | 
+		Given I have the following budget record
+			| id | category_id | value | 
+			| 3  | 3           | 16760 | 
 		When I navigate to the view budgets page
-		Then I should see "You need 100 more to cover your budgets."
+		Then I should see "You need 100.0 more to cover your budgets."
