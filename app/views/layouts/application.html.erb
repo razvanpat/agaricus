@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Agaricus</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Agaricus</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<% if user_signed_in? -%>
-  <div id="user_login_box" style="float:right">
-    <%= current_user.email %> |
-    <%= link_to 'My info', edit_user_registration_path %> |
-    <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
-  </div>
-<% end -%>
+    <header class="navbar">
+    <nav class="navbar-inner">
+    <%= link_to image_tag('/assets/money_gold.png', :class => "logo") + " Agaricus", root_path, :class => 'brand' %>
+    <ul class="nav">
+      <li <%= active_status root_path %>><%= link_to 'Home', root_path %></li>
+      <li <%= active_status new_transaction_path %>><%= link_to 'Add Transaction', new_transaction_path %></li>
+      <li <%= active_status budgets_path %>><%= link_to 'Budgets', budgets_path %></li>
+      <li <%= active_status accounts_path %>><%= link_to 'Accounts', accounts_path %></li>
+      <li <%= active_status categories_path %>><%= link_to 'Categories', categories_path %></li>
+    </ul>
+    <% if user_signed_in? -%>
+      <ul class="nav pull-right">
+        <li class="dropdown pull-right">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= current_user.email %> <b class="caret"></b> </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'My info', edit_user_registration_path %></li> 
+          <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+        </ul>
+        </li>
+      </ul>
+    <% end -%>
+    </nav>
+    </header>
 
-<nav class="main-nav">
-	<ul>
-		<li><%= link_to 'Home', root_path %></li>
-    <li><%= link_to 'Add Transaction', new_transaction_path %></li>
-    <li><%= link_to 'Budgets', budgets_path %></li>
-		<li><%= link_to 'Accounts', accounts_path %></li>
-		<li><%= link_to 'Categories', categories_path %></li>
-	<ul>
-</nav>
+    <div class="content">
+      <%= yield %>
+    </div>
 
-<%= yield %>
-
-</body>
+  </body>
 </html>
