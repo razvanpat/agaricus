@@ -12,7 +12,7 @@
 
 <% @categories.each do |category| %>
   <tr id="category-<%= category.id %>">
-    <td><%= category.name %></td>
+    <td class="name"><%= category.name %></td>
     <td><%= category.balance %></td>
     <td><%= link_to 'Add Transaction', new_transaction_path(category_id: category.id) %></td>
     <td><%= link_to 'Show', category %></td>
@@ -24,4 +24,4 @@
 
 <br />
 
-<%= link_to 'New Category', new_category_path %>
+<%= button_to 'New Category', new_category_path %>

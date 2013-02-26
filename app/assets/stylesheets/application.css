@@ -25,6 +25,10 @@ td {
   text-align: right;
 }
 
+table .name {
+  text-align: left;
+}
+
 table .category {
   text-align: left;
 }
