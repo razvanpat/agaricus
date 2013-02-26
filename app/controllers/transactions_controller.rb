@@ -1,6 +1,17 @@
 class TransactionsController < ApplicationController
   before_filter :authenticate_user!
 
+  # GET /transactions
+  # GET /transactions.json
+  def index
+    @transactions = Transaction.joins(:category).where('categories.user_id = ?', current_user.id)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @transactions }
+    end
+  end
+
   # GET /transactions/1
   # GET /transactions/1.json
   def show
