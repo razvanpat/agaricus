@@ -7,7 +7,7 @@ When /^I click the accounts link$/ do
 end
 
 Then /^a new account link$/ do
-  page.should have_button('New Account')
+  page.should have_link('New Account')
 end
 
 Then /^edit account link$/ do
